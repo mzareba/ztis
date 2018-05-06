@@ -7,6 +7,9 @@ import java.util.Date;
 
 public class Post
 {
+    // post identifier - url
+    private String id;
+
     // hashtag or subreddit
     private String topic;
 
@@ -28,9 +31,10 @@ public class Post
     {
     }
 
-    public Post(String topic, Source source, Date date, boolean originalPost, int likes,
+    public Post(String id, String topic, Source source, Date date, boolean originalPost, int likes,
                     int responses)
     {
+        this.id = id;
         this.topic = topic;
         this.source = source;
         this.date = date;
@@ -41,6 +45,7 @@ public class Post
 
     public DBObject toDBObject() {
         DBObject document = new BasicDBObject();
+        document.put("_id", id);
         document.put("topic", topic);
         document.put("isReddit", source.isReddit);
         document.put("date", date);
@@ -48,6 +53,16 @@ public class Post
         document.put("likes", likes);
         document.put("responses", responses);
         return document;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
     }
 
     public String getTopic()
