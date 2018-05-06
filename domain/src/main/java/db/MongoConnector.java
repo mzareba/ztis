@@ -18,6 +18,6 @@ public class MongoConnector
     }
 
     public void insert(Post post) {
-        collection.insert(post.toDBObject());
+        collection.save(post.toDBObject());
     }
 }
