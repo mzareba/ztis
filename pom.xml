@@ -11,20 +11,67 @@
     <modules>
         <module>reddit</module>
         <module>domain</module>
+        <module>app</module>
     </modules>
 
     <properties>
-        <mongo-version>2.10.1</mongo-version>
+        <mongo.version>2.10.1</mongo.version>
+        <cxf.version>3.1.7</cxf.version>
+        <jackson.version>2.8.3</jackson.version>
+        <guava.version>22.0</guava.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
 
+            <!-- Mongo -->
+
             <dependency>
                 <groupId>org.mongodb</groupId>
                 <artifactId>mongo-java-driver</artifactId>
-                <version>${mongo-version}</version>
+                <version>${mongo.version}</version>
             </dependency>
+
+            <!-- CXF -->
+
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-client</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+
+            <!-- Jackson -->
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.jaxrs</groupId>
+                <artifactId>jackson-jaxrs-json-provider</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
