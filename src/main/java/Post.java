@@ -1,3 +1,6 @@
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+
 import java.util.Date;
 
 public class Post
@@ -32,6 +35,17 @@ public class Post
         this.originalPost = originalPost;
         this.likes = likes;
         this.responses = responses;
+    }
+
+    public DBObject toDBObject() {
+        DBObject document = new BasicDBObject();
+        document.put("topic", topic);
+        document.put("isReddit", source.isReddit);
+        document.put("date", date);
+        document.put("originalPost", originalPost);
+        document.put("likes", likes);
+        document.put("responses", responses);
+        return document;
     }
 
     public String getTopic()
