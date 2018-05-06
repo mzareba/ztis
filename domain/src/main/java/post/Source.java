@@ -1,3 +1,5 @@
+package post;
+
 public enum Source
 {
     REDDIT(true),

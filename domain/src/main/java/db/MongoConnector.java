@@ -1,6 +1,8 @@
+package db;
+
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
-import com.mongodb.WriteResult;
+import post.Post;
 
 import java.net.UnknownHostException;
 
