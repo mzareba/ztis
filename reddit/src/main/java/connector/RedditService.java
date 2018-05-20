@@ -10,7 +10,7 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 public class RedditService {
 
-    private static final String url = "https://www.reddit.com/r/";
+    private static final String url = "https://www.reddit.com";
     private final Client client;
 
     public RedditService() {
@@ -23,7 +23,7 @@ public class RedditService {
     }
 
     private String mapSubredditToUrl(final String subreddit) {
-        return String.format("%s%s.json", url, subreddit);
+        return String.format("%s%s.json?limit=100", url, subreddit);
     }
 
 }

@@ -1,10 +1,12 @@
 package db;
 
 import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import post.Post;
 
 import java.net.UnknownHostException;
+import java.util.List;
 
 public class MongoConnector
 {
