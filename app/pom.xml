@@ -11,10 +11,28 @@
 
     <artifactId>app</artifactId>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>ztis2018</groupId>
             <artifactId>domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ztis2018</groupId>
+            <artifactId>reddit</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

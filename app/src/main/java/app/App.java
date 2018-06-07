@@ -3,8 +3,7 @@ package app;
 import connector.PostsResponse;
 import connector.RedditService;
 import db.MongoConnector;
-import post.Post;
-import post.PostBuilder;
+import post.IPost;
 import post.Source;
 
 import java.net.UnknownHostException;
@@ -31,27 +30,23 @@ public class App {
             System.exit(1);
         }
 
-        final PostsResponse response = app.redditService.getPosts("/r/fcbayern");
+        final PostsResponse response = app.redditService.getPosts("/r/gadgets");
 
-        HashMap<String, Object> data = (LinkedHashMap)response.getData();
-        List<HashMap> rawPosts = (ArrayList<HashMap>)data.get("children");
-        List<Post> posts = new ArrayList<>();
-
-        for(HashMap post : rawPosts) {
-            HashMap<String, Object> postData = (LinkedHashMap) post.get("data");
-            posts.add(new PostBuilder()
-                            .withId((String) postData.get("permalink"))
-                            .withTopic((String) postData.get("subreddit"))
-                            .withSource(Source.REDDIT)
-                            .withDate(new Date(Double.valueOf(postData.get("created").toString()).longValue() * 1000))
-                            .withOriginalPost(true)
-                            .withLikes(Integer.valueOf(postData.get("score").toString()))
-                            .withResponses(Integer.valueOf(postData.get("num_comments").toString()))
-                            .build());
-        }
-
-        for (Post post : posts) {
-            dbConnector.insert(post);
+        List<IPost> posts = response.getPosts();
+//        List<Post> posts = ResponseParser.parseResponse(response, true);
+//        List<Post> comments = new ArrayList<>();
+//
+//        for (Post post : posts) {
+//            if (post.getResponses() > 0) {
+//                PostsResponse commentsResponse = app.redditService.getPosts(post.getId());
+//                comments.addAll(ResponseParser.parseResponse(commentsResponse, false));
+//            }
+//        }
+//
+//        posts.addAll(comments);
+//
+        for (IPost post : posts) {
+            dbConnector.insert(post, Source.REDDIT, true);
         }
     }
 }

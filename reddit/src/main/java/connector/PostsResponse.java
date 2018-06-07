@@ -1,13 +1,15 @@
 package connector;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import post.IPost;
 
+import java.util.List;
 import java.util.Objects;
 
 @JsonDeserialize(builder = PostsResponse.Builder.class)
 public class PostsResponse {
     private final String kind;
-    private final Object data;
+    private final ResponseData data;
 
     private PostsResponse(final Builder builder) {
         kind = builder.kind;
@@ -22,10 +24,13 @@ public class PostsResponse {
         return kind;
     }
 
-    public Object getData() {
+    public ResponseData getData() {
         return data;
     }
 
+    public List<IPost> getPosts() {
+        return data.getPosts();
+    }
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
@@ -50,7 +55,7 @@ public class PostsResponse {
 
     public static final class Builder {
         private String kind;
-        private Object data;
+        private ResponseData data;
 
         private Builder() {
         }
@@ -60,7 +65,7 @@ public class PostsResponse {
             return this;
         }
 
-        public Builder withData(final Object data) {
+        public Builder withData(final ResponseData data) {
             this.data = data;
             return this;
         }

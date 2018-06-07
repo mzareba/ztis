@@ -5,7 +5,7 @@ public enum Source
     REDDIT(true),
     TWITTER(false);
 
-    boolean isReddit;
+    public boolean isReddit;
 
     Source(boolean isReddit)
     {
