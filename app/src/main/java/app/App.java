@@ -1,52 +1,36 @@
 package app;
 
-import connector.PostsResponse;
+import api.RedditApi;
 import connector.RedditService;
 import db.MongoConnector;
-import post.IPost;
-import post.Source;
+import mapper.reddit.RedditPostMapper;
+import model.RedditPost;
+import post.Post;
 
 import java.net.UnknownHostException;
-import java.util.*;
+import java.util.List;
+
+import static com.google.common.collect.ImmutableList.toImmutableList;
 
 public class App {
 
-    private final RedditService redditService;
-
-    public App() {
-        this.redditService = new RedditService();
-    }
 
     public static void main(String[] args) {
-        final App app = new App();
-        MongoConnector dbConnector = null;
+        final RedditApi redditApi = new RedditApi(new RedditService());
+        final MongoConnector dbConnector = new MongoConnector();
+        final RedditPostMapper redditPostMapper = new RedditPostMapper();
 
-        try
-        {
-            dbConnector = new MongoConnector();
-        }
-        catch (UnknownHostException e)
-        {
+        try {
+            dbConnector.connect();
+        } catch (final UnknownHostException e) {
             System.exit(1);
         }
 
-        final PostsResponse response = app.redditService.getPosts("/r/gadgets");
+        final List<RedditPost> newRedditPosts = redditApi.getNewPosts("bitcoin", 100, null);
+        final List<Post> mappedPosts = newRedditPosts.stream()
+                .map(post -> redditPostMapper.mapToDomainPost(post, true))
+                .collect(toImmutableList());
 
-        List<IPost> posts = response.getPosts();
-//        List<Post> posts = ResponseParser.parseResponse(response, true);
-//        List<Post> comments = new ArrayList<>();
-//
-//        for (Post post : posts) {
-//            if (post.getResponses() > 0) {
-//                PostsResponse commentsResponse = app.redditService.getPosts(post.getId());
-//                comments.addAll(ResponseParser.parseResponse(commentsResponse, false));
-//            }
-//        }
-//
-//        posts.addAll(comments);
-//
-        for (IPost post : posts) {
-            dbConnector.insert(post, Source.REDDIT, true);
-        }
+        dbConnector.savePosts(mappedPosts);
     }
 }
