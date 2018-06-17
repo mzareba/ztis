@@ -3,7 +3,7 @@ package post;
 public enum Source
 {
     REDDIT(true),
-    TWITTER(false);
+    WYKOP(false);
 
     public boolean isReddit;
 
