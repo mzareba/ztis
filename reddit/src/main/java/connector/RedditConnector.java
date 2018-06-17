@@ -12,14 +12,14 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
 
-public class RedditService {
+public class RedditConnector {
 
-    private static final Logger logger = LoggerFactory.getLogger(RedditService.class);
+    private static final Logger logger = LoggerFactory.getLogger(RedditConnector.class);
     private static final String REDDIT_URL = "https://www.reddit.com/r/";
     private static final String CATEGORY = "new";
     private final Client client;
 
-    public RedditService() {
+    public RedditConnector() {
         client = ClientBuilder.newClient().register(new JacksonJsonProvider().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false));
     }
 

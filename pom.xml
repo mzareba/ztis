@@ -22,6 +22,7 @@
         <guava.version>22.0</guava.version>
         <log4j.version>2.8.2</log4j.version>
         <slf4j.version>1.7.25</slf4j.version>
+        <apacheCommons.version>3.6</apacheCommons.version>
     </properties>
 
     <dependencyManagement>
@@ -46,6 +47,14 @@
                 <artifactId>log4j-core</artifactId>
                 <version>${log4j.version}</version>
                 <scope>runtime</scope>
+            </dependency>
+
+            <!-- Apache Commons -->
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${apacheCommons.version}</version>
             </dependency>
 
             <!-- Mongo -->
